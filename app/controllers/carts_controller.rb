@@ -5,7 +5,6 @@ class CartsController < ApplicationController
   # GET /carts.json
   def index
     @carts = Cart.all
-    @cart = current_cart
   end
 
   # GET /carts/1
@@ -22,7 +21,6 @@ class CartsController < ApplicationController
         format.xml { render :xml => @cart }
       end
     end
-  end
   end
 
   # GET /carts/new
@@ -72,12 +70,12 @@ class CartsController < ApplicationController
     session[:cart_id] = nil
 
     respond_to do |format|
-      format.html { redirect_to(store_url) }
+      format.html { redirect_to(store_url, :notice => 'You cart is currently empty') }
       format.xml { head :ok }
     end
   end
 
-  private
+   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cart
       @cart = Cart.find(params[:id])
@@ -87,4 +85,5 @@ class CartsController < ApplicationController
     def cart_params
       params[:cart]
     end
-
+end
+  
