@@ -1,4 +1,3 @@
-<% @cart = current_cart if @cart.blank? %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,10 +13,12 @@
     <%= @page_title || "Pragmatic Bookshelf" %>
   </div>
   <div id="columns">
-    <div id="side">
-      <div id="cart" %>
+    <% if @cart %>
+      <%= hidden_div_if(@cart.line_items.empty?, :id => "cart") do %>
         <%= render @cart %>
-      </div>
+      <% end %>
+    <% end %>
+  </div>
      
       <a href="http://www....">Home</a><br />
       <a href="http://www..../faq">Qustions</a><br />

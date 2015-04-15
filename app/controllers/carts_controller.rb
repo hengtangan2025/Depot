@@ -1,10 +1,13 @@
 class CartsController < ApplicationController
-  before_action :set_cart, only: [:show, :edit, :update, :destroy]
+  before_action :set_cart, only: [:edit, :update, :destroy]
 
   # GET /carts
   # GET /carts.json
   def index
     @carts = Cart.all
+    @cart = current_cart
+
+
   end
 
   # GET /carts/1
@@ -30,6 +33,7 @@ class CartsController < ApplicationController
 
   # GET /carts/1/edit
   def edit
+    
   end
 
   # POST /carts

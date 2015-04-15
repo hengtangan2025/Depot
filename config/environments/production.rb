@@ -3,6 +3,7 @@ Rails.application.configure do
 
   # Code is not reloaded between requests.
   config.cache_classes = true
+  config.action_mailer.delivery_method = :test
   config.action_mailer.delivery_method = :smtp 
 
   config.action_mailer.smtp_settings = {

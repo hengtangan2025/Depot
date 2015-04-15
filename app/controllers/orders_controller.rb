@@ -6,8 +6,10 @@ class OrdersController < ApplicationController
   def index
     @orders = Order.all
     @cart = current_cart
-    @orders = Order.paginate :page=>params[:page], :order=>'create_at desc', 
-      :per_page => 10
+    # @orders = Order.paginate :page=>params[:page], :order=>'create_at desc', 
+    #   :per_page => 10
+
+    @orders = Order.order('created_at DESC').paginate(:page => params[:page], :per_page => 10)
 
     respond_to do |format|
       format.html # index.html.erb
