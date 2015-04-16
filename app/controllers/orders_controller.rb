@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  skip_before_filter :authoriaze, :only => [:new, :create]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   # GET /orders

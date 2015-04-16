@@ -6,6 +6,13 @@ class User < ActiveRecord::Base
   attr_accessor  :password_confirmation
   attr_reader    :password
   validate :password_must_be_present
+  after_destroy :ensure_an_admin_remains
+
+  def ensure_an_admin_remains
+    if User.count.zone?
+      raise "Can't delete last user"
+    end
+  end
 
   def User.authenticate(name, password)
     if user = find_by_name(name)
@@ -32,7 +39,7 @@ class User < ActiveRecord::Base
   private    
 
     def password_must_be_present
-      error.add(:password, "Missing password") unless hashed_password.present?
+      errors.add(:password, "Missing password") unless hashed_password.present?
     end
 
     def generate_salt
