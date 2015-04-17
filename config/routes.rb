@@ -6,28 +6,22 @@ Rails.application.routes.draw do
     post 'login' => :create
     delete 'logout' => :destroy
   end
+  scope '(:locale)' do
+    resources :users
 
-  resources :users
+    resources :orders
 
-  resources :orders
+    resources :line_items
 
-  resources :line_items
+    resources :carts
 
-  resources :carts
-
-  get 'store/index'
-  resources :products do
-    get :who_bought, :on => :member
+    get 'store/index'
+    resources :products do
+      get :who_bought, :on => :member
+    end
+    root :to => 'store#index', :as => 'store'
   end
-
-  
-
-
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  root :to => 'store#index', :as => 'store'
+end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -77,4 +71,4 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-end
+

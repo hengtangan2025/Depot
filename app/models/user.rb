@@ -9,11 +9,12 @@ class User < ActiveRecord::Base
   after_destroy :ensure_an_admin_remains
 
   def ensure_an_admin_remains
-    if User.count.zone?
+    if User.count.zero?
       raise "Can't delete last user"
     end
   end
 
+  
   def User.authenticate(name, password)
     if user = find_by_name(name)
       if user.hashed_password == encrypt_password(password, user.salt)
